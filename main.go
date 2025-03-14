@@ -4,6 +4,7 @@ import (
 	"derpy-launcher072/igdb"
 	"derpy-launcher072/library"
 	"derpy-launcher072/torrent"
+	"derpy-launcher072/torrent/realdebrid"
 	"derpy-launcher072/utils/settingsManager"
 	"embed"
 	"fmt"
@@ -40,7 +41,14 @@ func main() {
 
 	if settings.UseRealDebrid {
 		go func() {
-			torrent.CreateDebridClient(settings)
+			debridClient := realdebrid.NewRealDebridClient(settings.DebridToken)
+			user, err := debridClient.GetUser()
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			fmt.Println(user)
+
 		}()
 	} else {
 		torrentManager = torrent.StartClient(settings.DownloadPath)
