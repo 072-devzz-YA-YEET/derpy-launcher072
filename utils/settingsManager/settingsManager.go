@@ -1,4 +1,4 @@
-package settings
+package settingsManager
 
 import (
 	"encoding/json"
@@ -11,6 +11,7 @@ type Settings struct {
 	PathToSettings string `json:"path_to_settings"`
 	DownloadPath   string `json:"download_path"`
 	UseRealDebrid bool `json:"use_real_debrid"`
+	DebridToken string `json:"debrid_token"`
 }
 
 func (settings Settings) SaveSettings() error {

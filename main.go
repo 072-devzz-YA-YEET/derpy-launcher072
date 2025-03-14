@@ -4,7 +4,7 @@ import (
 	"derpy-launcher072/igdb"
 	"derpy-launcher072/library"
 	"derpy-launcher072/torrent"
-	"derpy-launcher072/utils/settings"
+	"derpy-launcher072/utils/settingsManager"
 	"embed"
 	"fmt"
 	"log"
@@ -29,7 +29,7 @@ var assets embed.FS
 // logs any error that might occur.
 func main() {
 	// 🐐routine
-	settings, err := settings.LoadSettings(filepath.Join("settings.json"))
+	settings, err := settingsManager.LoadSettings(filepath.Join("settings.json"))
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -37,10 +37,15 @@ func main() {
 
 	libraryManager = library.GetLibrary()
 	apiManager = igdb.NewAPI()
+
+	if settings.UseRealDebrid {
+		go func() {
+			torrent.CreateDebridClient(settings)
+		}()
+	} else {
+		torrentManager = torrent.StartClient(settings.DownloadPath)
+	}
 	torrentManager = torrent.StartClient(settings.DownloadPath)
-
-
-	fmt.Println(settings)
 
 	//go func() {
 	//	results := torrent.Scrape_1337x("goat simulator 3")

@@ -4,7 +4,7 @@ import router from './router'
 
 import { AddToLibrary } from '../bindings/derpy-launcher072/library/library'
 
-AddToLibrary(69)
+//AddToLibrary(69)
 
 const app = createApp(App)
 app.use(router)
