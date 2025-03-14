@@ -31,7 +31,7 @@ func NewRealDebridClient(apiKey string) *RealDebridClient {
 		client: &http.Client{
 			Timeout: 10 * time.Second,
 		},
-		BaseURL: "https://api.real-debrid.com/rest/1.0/",
+		BaseURL: "https://api.real-debrid.com/rest/1.0",
 	}
 }
 

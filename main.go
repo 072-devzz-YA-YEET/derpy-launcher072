@@ -47,6 +47,16 @@ func main() {
 				fmt.Println(err)
 			}
 
+			hosts, err := debridClient.AvailableHosts()
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+
+			for _, host := range hosts {
+				fmt.Println(host.Host)
+			}
+
 			fmt.Println(user)
 
 		}()
